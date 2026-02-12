@@ -1,34 +1,22 @@
 Task Tracker – Local Setup Guide
-1. Clone the Repository
-Clone the project from the GitHub link provided: https://github.com/munda703/APITaskTracker.API.git
+Here is your setup guide rewritten in **professional paragraph format**, suitable for a Word document:
 
-2. Open and Run the API with Visual Studio
-- Open Visual Studio.
-- Load the cloned solution. If the seleted project is not API make the start up project to be the API project.
-- Make sure SQL installed in the machine you are cloning this project to since this project is using entity framework core not in memory DB
+---
 
-- UI PROJECT IS INSIDE API PROJECT IN THE COLDER CALLED ClientApp
-- Navigate to: TaskTrackerProject > APITaskTracker > Properties
-- Open launchSettings.json.
-- Copy the SSL port assigned by https (example: 7141).
-Always run the API using https so the port stays consistent. and this port is the one I assigned to backend to know of where the calls are sent is going
-3. Configure the React Environment File
-Go to:
-C:\Users\monde\OneDrive\Documents\visual studio projects\APITaskTracker.API\ClientApp\TaskTracker(where you clone your code go to the directory API folder contains UI Folder called ClientApp)
-Open env and update apiUrl:
-apiUrl: 'VITE_API_URL=https://localhost:7141/api'
-Example:
-apiUrl: 'VITE_API_URL=https://localhost:7141/api'
-4. Verify the API
-If configured correctly, Swagger UI will load with CRUD endpoints.
-The backend uses .NET 8 with controller-based APIs (not minimal APIs).
-5. Run the react Application
-Navigate to:
-C:\Users\monde\OneDrive\Documents\visual studio projects\APITaskTracker.API\ClientApp\TaskTracker
-Open Command Prompt in this folder:
-cmd
-Launch VS Code:
-code .
-In VS Code terminal:
-npm install
-Then to run it npm run dev. from here you successful ran the 
+# Task Tracker – Local Setup Guide
+
+To set up the Task Tracker project locally, begin by cloning the repository from GitHub using the following link: [https://github.com/munda703/APITaskTracker.API.git](https://github.com/munda703/APITaskTracker.API.git). Once the repository has been successfully cloned to your machine, open Visual Studio and load the solution file. After opening the solution, ensure that the API project is set as the startup project. If it is not already selected, right-click on the API project within Solution Explorer and choose “Set as Startup Project.”
+
+Before running the application, confirm that SQL Server is installed on your machine. This project uses Entity Framework Core with a SQL Server database and does not rely on an in-memory database. A properly installed and running SQL Server instance is therefore required for the application to function correctly.
+
+The React frontend application is located inside the API solution folder. Specifically, navigate to the ClientApp folder within the APITaskTracker.API project, and inside it you will find the TaskTracker folder containing the UI source code.
+
+Next, configure the HTTPS port used by the backend. Navigate to the APITaskTracker project, open the Properties folder, and locate the launchSettings.json file. Inside this file, find the HTTPS application URL (for example, [https://localhost:7141](https://localhost:7141)) and take note of the port number. It is important to always run the API using HTTPS to ensure the port remains consistent, as the frontend depends on this port for sending API requests.
+
+After identifying the correct HTTPS port, navigate to the TaskTracker folder inside ClientApp and open the .env file. Update the VITE_API_URL variable to match the HTTPS port from launchSettings.json. For example, if the port is 7141, the value should be set to VITE_API_URL=[https://localhost:7141/api](https://localhost:7141/api). This ensures that the React application communicates with the correct backend endpoint.
+
+Once configuration is complete, run the API project in Visual Studio. If everything has been set up correctly, Swagger UI will launch in the browser, displaying the available CRUD endpoints. The backend is built using .NET 8 with controller-based APIs and Entity Framework Core connected to SQL Server.
+
+To run the React application, navigate to the TaskTracker folder inside ClientApp. Open Command Prompt in this directory and launch Visual Studio Code by typing “code .”. Within the VS Code terminal, first run “npm install” to install all required dependencies. After installation is complete, execute “npm run dev” to start the development server. The terminal will display a local development URL, which can be opened in a browser to access the application.
+
+Once both the backend and frontend are running successfully, the Task Tracker application will be fully operational and connected to the database.

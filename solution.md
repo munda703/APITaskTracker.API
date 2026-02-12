@@ -10,3 +10,17 @@ The CORS policy is deliberately configured to allow requests from the React deve
 Overall, this solution focuses on maintainability, readability, and reliable development workflows. It is well-suited for CRUD-based applications and educational environments where clean layering, structured architecture, and testability are essential.
 
 On the frontend, React was selected to build the user interface because it provides a strong, structured component model and integrates well with REST APIs in enterprise-style applications. The frontend solution is built using the latest version of React, TypeScript for type safety and improved maintainability, and Tailwind CSS for modern, utility-first styling. This combination ensures a scalable, clean, and maintainable user interface that complements the backend architecture.
+
+**Tooling and or framework used on this crud**
+Frontend
+
+React (SPA)
+TypeScript
+Redux / Context API
+
+Backend
+
+.NET 8 Web API
+ASP.NET Core
+Entity Framework Core
+RESTful services

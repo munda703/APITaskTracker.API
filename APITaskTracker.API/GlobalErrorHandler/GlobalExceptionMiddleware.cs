@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APITaskTracker.API.GlobalErrorHandler
 {
@@ -26,45 +26,59 @@ namespace APITaskTracker.API.GlobalErrorHandler
             {
                 _logger.LogWarning(ex, "Validation failed");
 
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await WriteValidationErrorAsync(context, ex);
+                await HandleValidationExceptionAsync(context, ex);
             }
             catch (KeyNotFoundException ex)
             {
                 _logger.LogWarning(ex, "Resource not found");
 
-                context.Response.StatusCode = StatusCodes.Status404NotFound;
-                await WriteErrorAsync(context, ex.Message);
+                await HandleExceptionAsync(
+                    context,
+                    StatusCodes.Status404NotFound,
+                    "Resource Not Found",
+                    ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception");
 
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await WriteErrorAsync(context, "An unexpected error occurred");
+                await HandleExceptionAsync(
+                    context,
+                    StatusCodes.Status500InternalServerError,
+                    "Internal Server Error",
+                    "An unexpected error occurred.");
             }
         }
 
-        private static async Task WriteErrorAsync(
+        private static async Task HandleExceptionAsync(
             HttpContext context,
-            string message)
+            int statusCode,
+            string title,
+            string detail)
         {
-            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = statusCode;
+            context.Response.ContentType = "application/problem+json";
 
-            var response = new ErrorResponse(
-                Message: message,
-                TraceId: context.TraceIdentifier
-            );
+            var problem = new ProblemDetails
+            {
+                Type = $"https://httpstatuses.com/{statusCode}",
+                Title = title,
+                Status = statusCode,
+                Detail = detail,
+                Instance = context.Request.Path
+            };
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(response));
+            problem.Extensions["traceId"] = context.TraceIdentifier;
+
+            await context.Response.WriteAsJsonAsync(problem);
         }
 
-        private static async Task WriteValidationErrorAsync(
+        private static async Task HandleValidationExceptionAsync(
             HttpContext context,
             ValidationException ex)
         {
-            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.ContentType = "application/problem+json";
 
             var errors = ex.Errors
                 .GroupBy(e => e.PropertyName)
@@ -73,14 +87,18 @@ namespace APITaskTracker.API.GlobalErrorHandler
                     g => g.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            var response = new ErrorResponse(
-                Message: "Validation failed",
-                TraceId: context.TraceIdentifier,
-                Errors: errors
-            );
+            var problem = new ValidationProblemDetails(errors)
+            {
+                Type = "https://httpstatuses.com/400",
+                Title = "Validation Failed",
+                Status = StatusCodes.Status400BadRequest,
+                Detail = "One or more validation errors occurred.",
+                Instance = context.Request.Path
+            };
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(response));
+            problem.Extensions["traceId"] = context.TraceIdentifier;
+
+            await context.Response.WriteAsJsonAsync(problem);
         }
     }
 }

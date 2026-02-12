@@ -12,14 +12,14 @@ Overall, this solution focuses on maintainability, readability, and reliable dev
 On the frontend, React was selected to build the user interface because it provides a strong, structured component model and integrates well with REST APIs in enterprise-style applications. The frontend solution is built using the latest version of React, TypeScript for type safety and improved maintainability, and Tailwind CSS for modern, utility-first styling. This combination ensures a scalable, clean, and maintainable user interface that complements the backend architecture.
 
 **Tooling and or framework used on this crud**
-Frontend
+
+**Frontend**
 
 React (SPA)
 TypeScript
 Redux / Context API
 
-Backend
-
+**Backend**
 .NET 8 Web API
 ASP.NET Core
 Entity Framework Core

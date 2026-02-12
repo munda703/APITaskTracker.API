@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="APITaskTracker.API/APITaskTracker.API.csproj" />
+  <Project Path="APITaskTracker.Application/APITaskTracker.Application.csproj" />
+  <Project Path="APITaskTracker.Domain/APITaskTracker.Domain.csproj" />
+  <Project Path="APITaskTracker.Infrastructure/APITaskTracker.Infrastructure.csproj" />
+  <Project Path="APITaskTracker.Tests/APITaskTracker.Tests.csproj" />
+</Solution>

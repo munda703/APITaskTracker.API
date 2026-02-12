@@ -1,6 +1,3 @@
-Here is your content rewritten in professional paragraph format, suitable for a Word document:
-
----
 
 This solution is built using a clean, controller-based .NET 8 Web API architecture that emphasizes simplicity, maintainability, and testability. The backend follows a structured and layered design approach to ensure separation of concerns and long-term scalability. The architecture consists of ASP.NET Core 8 Web API using controllers (not minimal APIs), Entity Framework Core as the ORM for database mapping, and a Repository Pattern implementation that includes both a GenericRepository and a TaskRepository. Additionally, a Unit of Work pattern is implemented to manage transactional consistency and coordinate repository operations efficiently.
 
